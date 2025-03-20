@@ -1,3 +1,6 @@
+"""
+This module handles blog posts saving them to a json file.
+"""
 import json
 
 BLOG_FILE = "data/blogs.json"
@@ -15,7 +18,7 @@ def get_blogs(blog_file=BLOG_FILE):
     """
     if blog_file is None:
         blog_file = BLOG_FILE
-    with open(blog_file, 'r') as json_file:
+    with open(blog_file, 'r', encoding='utf-8') as json_file:
         blogs = json.load(json_file)
     return blogs
 
@@ -25,7 +28,7 @@ def save_blogs(blogs, blog_file=BLOG_FILE):
     """
     if blog_file is None:
         blog_file = BLOG_FILE
-    with open(blog_file, 'w') as json_file:
+    with open(blog_file, 'w', encoding='utf-8') as json_file:
         json.dump(blogs, json_file)
 
 def add_blog(title, author, content):
@@ -55,11 +58,14 @@ def update(blog_id, title, author, content, reaction = None):
         if int(blog.get('id')) == int(blog_id):
             break
     if int(blogs[blog_index].get('id')) == int(blog_id):
-            blogs[blog_index]['title'] = title if title is not None else blogs[blog_index]['title']
-            blogs[blog_index]['author'] = author if author is not None else blogs[blog_index]['author']
-            blogs[blog_index]['content'] = content if content is not None else blogs[blog_index]['content']
-            if reaction in VALID_REACTIONS:
-                blogs[blog_index][reaction] = int(blogs[blog_index].get(reaction,0)) + 1
+        blogs[blog_index]['title'] = title \
+            if title is not None else blogs[blog_index]['title']
+        blogs[blog_index]['author'] = author \
+            if author is not None else blogs[blog_index]['author']
+        blogs[blog_index]['content'] = content \
+            if content is not None else blogs[blog_index]['content']
+        if reaction in VALID_REACTIONS:
+            blogs[blog_index][reaction] = int(blogs[blog_index].get(reaction,0)) + 1
     save_blogs(blogs)
     return blogs[blog_index].get('id')
 
@@ -89,4 +95,3 @@ def get_post(blog_id):
         if int(blog.get('id')) == int(blog_id):
             return blog
     return None
-
