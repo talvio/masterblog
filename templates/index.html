@@ -8,11 +8,18 @@
 </head>
 <body>
     <h1>Welcome to My Flask Blog!</h1>
+    <div class="center_align"><a class="link_button center_align" href="/add">Add a new blog post</a></div>
     {% for post in posts %}
     <div class="post">
-        <h2>{{ post.get('title') }}</h2>
-        <p><em>{{ post.get('author') }}</em></p>
-        <p>{{ post.get('content') }}</p>
+        <div>
+            <h2>{{ post.get('title') }}</h2>
+            <p><em>{{ post.get('author') }}</em></p>
+            <p>{{ post.get('content') }}</p>
+        </div>
+        <div class="post_buttons right_align ">
+            <div class="post_button"><a class="link_button center_align" href="/update/{{ post.get('id') }}">Update</a></div>
+            <div class="post_button"><a class="link_button center_align" href="/delete/{{ post.get('id') }}">Delete</a></div>
+        </div>
     </div>
     {% endfor %}
 </body>

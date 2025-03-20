@@ -44,3 +44,12 @@ def add_blog(title, author, content):
     save_blogs(blogs)
     return new_blog_id
 
+def delete(blog_id):
+    """ Remove a blog post """
+    blogs = get_blogs()
+    for blog in blogs:
+        if blog.get('id') == str(blog_id):
+            blogs.remove(blog)
+            break
+    save_blogs(blogs)
+
