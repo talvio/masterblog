@@ -1,6 +1,7 @@
 import json
 
 BLOG_FILE = "data/blogs.json"
+VALID_REACTIONS = ['like', 'dislike', 'angry', 'yawn', 'shrug', 'brain_explode']
 
 def get_blogs(blog_file=BLOG_FILE):
     """
@@ -44,20 +45,29 @@ def add_blog(title, author, content):
     save_blogs(blogs)
     return new_blog_id
 
-def update(blog_id, title, author, content):
+def update(blog_id, title, author, content, reaction = None):
     """ Update a blog post """
     blogs = get_blogs()
     blog_index = 0
     if len(blogs) == 0:
-        return
+        return None
     for blog_index, blog in enumerate(blogs):
         if int(blog.get('id')) == int(blog_id):
             break
     if int(blogs[blog_index].get('id')) == int(blog_id):
-            blogs[blog_index]['title'] = title
-            blogs[blog_index]['author'] = author
-            blogs[blog_index]['content'] = content
+            blogs[blog_index]['title'] = title if title is not None else blogs[blog_index]['title']
+            blogs[blog_index]['author'] = author if author is not None else blogs[blog_index]['author']
+            blogs[blog_index]['content'] = content if content is not None else blogs[blog_index]['content']
+            if reaction in VALID_REACTIONS:
+                blogs[blog_index][reaction] = int(blogs[blog_index].get(reaction,0)) + 1
     save_blogs(blogs)
+    return blogs[blog_index].get('id')
+
+
+def react(blog_id, reaction_type):
+    """ Add a new reaction to a blog post """
+    return update(blog_id, None, None, None, reaction_type)
+
 
 def delete(blog_id):
     """ Remove a blog post """

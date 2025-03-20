@@ -19,6 +19,11 @@
         <div class="post_buttons right_align ">
             <div class="post_button"><a class="link_button center_align" href="/update/{{ post.get('id') }}">Update</a></div>
             <div class="post_button"><a class="link_button center_align" href="/delete/{{ post.get('id') }}">Delete</a></div>
+            <div class="post_button"><a class="link_button center_align" href="/react/like/{{ post.get('id') }}">👍 {{ post.get('like', 0) }}</a></div>
+            <div class="post_button"><a class="link_button center_align" href="/react/dislike/{{ post.get('id') }}">👎 {{ post.get('dislike', 0) }}</a></div>
+            <div class="post_button"><a class="link_button center_align" href="/react/yawn/{{ post.get('id') }}">😴 {{ post.get('yawn', 0) }}</a></div>
+            <div class="post_button"><a class="link_button center_align" href="/react/angry/{{ post.get('id') }}">🤬 {{ post.get('angry', 0) }}</a></div>
+            <div class="post_button"><a class="link_button center_align" href="/react/brain_explode/{{ post.get('id') }}">🤯 {{ post.get('brain_explode', 0) }}</a></div>
         </div>
     </div>
     {% endfor %}

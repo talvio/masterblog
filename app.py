@@ -46,5 +46,17 @@ def update(post_id):
                             post=blog
                            )
 
+@app.route('/react/<reaction_type>/<int:post_id>')
+def react(reaction_type, post_id):
+    if blog_posts.react(post_id, reaction_type) is None:
+        return 'Quit playing around with my URLs. <a href="/">Click here to go to blog posts.</a>', 404
+    return redirect(url_for('index'))
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001, debug=True)
