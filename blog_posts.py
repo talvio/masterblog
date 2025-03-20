@@ -44,6 +44,21 @@ def add_blog(title, author, content):
     save_blogs(blogs)
     return new_blog_id
 
+def update(blog_id, title, author, content):
+    """ Update a blog post """
+    blogs = get_blogs()
+    blog_index = 0
+    if len(blogs) == 0:
+        return
+    for blog_index, blog in enumerate(blogs):
+        if int(blog.get('id')) == int(blog_id):
+            break
+    if int(blogs[blog_index].get('id')) == int(blog_id):
+            blogs[blog_index]['title'] = title
+            blogs[blog_index]['author'] = author
+            blogs[blog_index]['content'] = content
+    save_blogs(blogs)
+
 def delete(blog_id):
     """ Remove a blog post """
     blogs = get_blogs()
@@ -52,4 +67,16 @@ def delete(blog_id):
             blogs.remove(blog)
             break
     save_blogs(blogs)
+
+def get_post(blog_id):
+    """
+    Get a blog post with id
+    :param post_id: ID of the post
+    :return: The specific blog post or None if no ID matches.
+    """
+    blogs = get_blogs()
+    for blog in blogs:
+        if int(blog.get('id')) == int(blog_id):
+            return blog
+    return None
 
