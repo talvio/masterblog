@@ -6,6 +6,7 @@ import json
 BLOG_FILE = "data/blogs.json"
 VALID_REACTIONS = ['like', 'dislike', 'angry', 'yawn', 'shrug', 'brain_explode']
 
+
 def get_blogs(blog_file=BLOG_FILE):
     """
     Returns the saved blogs from a file
@@ -22,6 +23,7 @@ def get_blogs(blog_file=BLOG_FILE):
         blogs = json.load(json_file)
     return blogs
 
+
 def save_blogs(blogs, blog_file=BLOG_FILE):
     """
     Saves blogs to a file
@@ -30,6 +32,7 @@ def save_blogs(blogs, blog_file=BLOG_FILE):
         blog_file = BLOG_FILE
     with open(blog_file, 'w', encoding='utf-8') as json_file:
         json.dump(blogs, json_file)
+
 
 def add_blog(title, author, content):
     """
@@ -47,6 +50,7 @@ def add_blog(title, author, content):
     )
     save_blogs(blogs)
     return new_blog_id
+
 
 def update(blog_id, title, author, content, reaction = None):
     """ Update a blog post """
@@ -79,10 +83,13 @@ def delete(blog_id):
     """ Remove a blog post """
     blogs = get_blogs()
     for blog in blogs:
-        if blog.get('id') == str(blog_id):
+        if str(blog.get('id')) == str(blog_id):
+            print(blogs)
             blogs.remove(blog)
+            print(blogs)
             break
     save_blogs(blogs)
+
 
 def get_post(blog_id):
     """
