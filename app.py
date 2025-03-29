@@ -10,6 +10,7 @@ def index():
     blogs = blog_posts.get_blogs()
     return render_template('index.html', posts=blogs)
 
+
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     """ Add a new blog post """
@@ -27,11 +28,13 @@ def add():
                            author="",
                            content="")
 
+
 @app.route('/delete/<int:post_id>')
 def delete(post_id):
     """ Delete a blog post """
     blog_posts.delete(post_id)
     return redirect(url_for('index'))
+
 
 @app.route('/update/<int:post_id>', methods=['GET', 'POST'])
 def update(post_id):
@@ -50,6 +53,7 @@ def update(post_id):
                             h1_title = "Updating an old yell at the world!",
                             post=blog
                            )
+
 
 @app.route('/react/<reaction_type>/<int:post_id>')
 def react(reaction_type, post_id):
