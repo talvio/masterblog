@@ -39,7 +39,10 @@ def add_blog(title, author, content):
     Add a new blog post
     """
     blogs = get_blogs()
-    new_blog_id = str(max(int(blog.get('id', 0)) + 1 for blog in blogs ))
+    if len(blogs) == 0:
+        new_blog_id = '1'
+    else:
+        new_blog_id = str(max(int(blog.get('id', 0)) + 1 for blog in blogs ))
     blogs.append(
         {
             'id': new_blog_id,
